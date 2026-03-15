@@ -19,7 +19,8 @@ def spell_reducer(spells: List[int], operation: str) -> int:
 def partial_enchanter(base_enchantment: Callable) -> Dict[str, Callable]:
     fire_enchant = partial(base_enchantment, power=50, element="fire")
     ice_enchant = partial(base_enchantment, power=50, element="ice")
-    lightning_enchant = partial(base_enchantment, power=50, element="light")
+    lightning_enchant = partial(base_enchantment, power=50,
+                                element="lightning")
     return {
         "fire_enchant": fire_enchant,
         "ice_enchant": ice_enchant,
@@ -36,7 +37,7 @@ def memoized_fibonacci(n: int) -> int:
 
 def spell_dispatcher() -> Callable:
     @singledispatch
-    def cast(target: Any) -> Callable:
+    def cast(target: Any) -> str:
         return f"Unknown spell target type: {type(target)}"
 
     @cast.register(int)

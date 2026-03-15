@@ -19,9 +19,10 @@ def spell_transformer(spells: List[str]) -> List[str]:
 def mage_stats(mages: list[dict]) -> dict:
     _max = max(mages, key=lambda x: x['power'])
     _min = min(mages, key=lambda x: x['power'])
-    _sum = sum(mages, key=lambda x: x['power'])
+    _sum = sum(m['power'] for m in mages)
     avg = round(_sum / len(mages), 2)
-    return {"max_power": _max, "min_power": _min, "avg_power": avg}
+    return {"max_power": _max['power'], "min_power": _min['power'],
+            "avg_power": avg}
 
 
 if __name__ == "__main__":
@@ -37,4 +38,8 @@ if __name__ == "__main__":
     spells = ['heal', 'shield', 'earthquake', 'meteor']
     new_artifacts = artifact_sorter(artifacts)
     lst = [x['power'] for x in new_artifacts]
-    print(lst)
+    print("Testing artifact sorter...")
+    print(f"{new_artifacts[0]['name']} ({new_artifacts[0]["power"]} power) \
+comes before {new_artifacts[1]['name']} ({new_artifacts[1]["power"]} power)\n")
+    print("Testing spell transformer...")
+    print(spell_transformer(["fireball", "heal", "sheild"]))
